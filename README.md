@@ -86,7 +86,7 @@ assert!(is_rust::is_very_rusty(&["rust", "Rust", "RUST", "b7410e"]));
 
 Lastly, you can check that something is not rust, because booleans are hard:
 
-```
+```rust
 extern crate is_rust;
 
 assert!(is_rust::is_not_rust("Python"));
