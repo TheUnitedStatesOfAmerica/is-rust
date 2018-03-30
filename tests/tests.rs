@@ -6,6 +6,7 @@ use is_rust::*;
 fn definitely_is_rust() {
     assert!(is_rust("rust"));
     assert!(is_rust("rust")); // check again just to be safe
+    assert!(is_rust("rust")); // one more time
     assert!(is_rust("RUST"));
     assert!(is_rust("Rust"));
     assert!(is_rust("RusT"));
@@ -20,6 +21,7 @@ fn definitely_is_rusty() {
     assert!(is_rusty("Rusty"));
     assert!(is_rusty("rustY"));
     assert!(is_rusty("rusty")); // check "rusty" again, you never know
+    assert!(is_rusty("rusty")); // make sure a third time
 }
 
 #[test]
