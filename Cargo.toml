@@ -13,3 +13,7 @@ version = "0.1.0"
 status = "actively-developed"
 
 [dependencies]
+
+[[bin]]
+name = "is-rust"
+path = "./bin/is-rust.rs"
