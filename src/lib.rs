@@ -113,6 +113,28 @@ use std::fmt::Display;
 const NAME: &str = "rust";
 const HEX: &str = "b7410e";
 const HEX2: &str = "#b7410e";
+const RUST_UNICODE: [&str; 20] = [
+    "Ｒ",
+    "ᴿ",
+    "𝓡",
+    "𝖱",
+    "𝗥",
+    "𝕽",
+    "𝙍",
+    "𝐑",
+    "𝑅",
+    "𝑹",
+    "𝘙",
+    "𝚁",
+    "🄬",
+    "🅁",
+    "Ⓡ",
+    "ℛ",
+    "ℜ",
+    "ℝ",
+    "fe2o3",
+    "rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.",
+];
 const RGB: [&str; 3] = ["173", "65", "14"];
 
 /// Returns whether a value is rust.
@@ -233,6 +255,10 @@ fn str_is_rust(mut s: &str) -> bool {
 
     if let Some(pos) = s.find(')') {
         s = &s[..pos];
+    }
+
+    if RUST_UNICODE.iter().any(|x| *x == s) {
+        return true;
     }
 
     let string = s.replace(' ', "");

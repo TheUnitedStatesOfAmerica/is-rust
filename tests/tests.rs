@@ -33,3 +33,9 @@ fn python_is_not_rust() {
 fn ruby_is_not_rust() {
     assert!(is_not_rust("ruby"));
 }
+
+#[test]
+fn other_rusts() {
+    assert!(is_rust("𝚁"));
+    assert!(is_rust("Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety."));
+}
