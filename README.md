@@ -1,3 +1,5 @@
+[![ci-badge][]][ci] [![docs-badge][]][docs]
+
 # is-rust
 
 Have you ever wanted to know if a value is rust, or at least rusty?
@@ -107,3 +109,8 @@ is-rust = "https://github.com/zeyla/is-rust"
 ### License
 
 ISC.
+
+[ci]: https://travis-ci.org/zeyla/is-rust
+[ci-badge]: https://travis-ci.org/zeyla/is-rust.svg?branch=master
+[docs]: https://docs.rs/is-rust
+[docs-badge]: https://img.shields.io/badge/docs-online-5023dd.svg
