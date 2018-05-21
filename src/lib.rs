@@ -289,10 +289,3 @@ fn str_is_rust(mut s: &str) -> bool {
 
     cur
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_str_is_rust() {
-    }
-}
