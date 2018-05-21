@@ -17,3 +17,7 @@ status = "actively-developed"
 [[bin]]
 name = "is-rust"
 path = "./bin/is-rust.rs"
+
+[features]
+default = ["std"]
+std = []

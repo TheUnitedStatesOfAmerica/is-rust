@@ -107,7 +107,9 @@
 //! ### License
 //!
 //! ISC.
+#![cfg_attr(not(feature = "std"), no_std)]
 
+#[cfg(feature = "std")]
 use std::fmt::Display;
 
 const NAME: &str = "rust";
@@ -135,6 +137,7 @@ const RUST_UNICODE: [&str; 20] = [
     "fe2o3",
     "rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.",
 ];
+#[cfg(feature = "std")]
 const RGB: [&str; 3] = ["173", "65", "14"];
 
 /// Returns whether a value is rust.
@@ -158,13 +161,25 @@ const RGB: [&str; 3] = ["173", "65", "14"];
 /// assert!(!is_rust::is_rust("python"));
 /// assert!(!is_rust::is_rust("ruby"));
 /// ```
+#[cfg(feature = "std")]
 pub fn is_rust<D: Display>(string: D) -> bool {
     _is_rust(&string.to_string())
 }
 
-#[inline]
+#[cfg(feature = "std")]
 fn _is_rust(string: &str) -> bool {
     str_is_rust(&string.to_lowercase())
+}
+
+/// Returns whether a value is rust.
+///
+/// Refer to the std-enabled version of this function.
+///
+/// This function does _not_ perform lowercasing.
+#[cfg(not(feature = "std"))]
+#[inline]
+pub fn is_rust(string: &str) -> bool {
+    str_is_rust(&string)
 }
 
 /// Returns whether the given value is equal to `"rusty"`.
@@ -189,12 +204,24 @@ fn _is_rust(string: &str) -> bool {
 /// ```rust
 /// assert!(!is_rust::is_rusty("rust"));
 /// ```
+#[cfg(feature = "std")]
 pub fn is_rusty<D: Display>(string: D) -> bool {
     _is_rusty(&string.to_string())
 }
 
+#[cfg(feature = "std")]
 fn _is_rusty(string: &str) -> bool {
     ["rusty", "ferris"].contains(&&*string.to_lowercase())
+}
+
+/// Returns whether the given value is equal to `"rusty"`.
+///
+/// Refer to the std-enabled version of this function.
+///
+/// This function does _not_ perform lowercasing.
+#[cfg(not(feature = "std"))]
+pub fn is_rusty(string: &str) -> bool {
+    ["rusty", "ferris"].contains(&string)
 }
 
 /// Returns whether a value is `"rusty"` or rust itself, meaning it is at least
@@ -210,14 +237,27 @@ fn _is_rusty(string: &str) -> bool {
 /// assert!(is_rust::is_at_least_rusty("rust"));
 /// assert!(is_rust::is_at_least_rusty("rusty"));
 /// ```
+#[cfg(feature = "std")]
 pub fn is_at_least_rusty<D: Display>(string: D) -> bool {
     _is_at_least_rusty(&string.to_string())
 }
 
+#[cfg(feature = "std")]
 fn _is_at_least_rusty(string: &str) -> bool {
     let string = string.to_lowercase();
 
     is_rust(&string) || is_rusty(&string)
+}
+
+/// Returns whether a value is `"rusty"` or rust itself, meaning it is at least
+/// rusty.
+///
+/// Refer to the std-enabled version of this function.
+///
+/// This function does _not_ perform lowercasing.
+#[cfg(not(feature = "std"))]
+pub fn is_at_least_rusty(string: &str) -> bool {
+    is_rust(string) || is_rusty(string)
 }
 
 /// Returns whether all of the given values are rust.
@@ -233,8 +273,19 @@ fn _is_at_least_rusty(string: &str) -> bool {
 /// ```rust
 /// assert!(is_rust::is_very_rusty(&["rust", "Rust", "RUST", "b7410e"]));
 /// ```
+#[cfg(feature = "std")]
 pub fn is_very_rusty<D: Display>(values: &[D]) -> bool {
     values.iter().all(|value| is_rust(value.to_string().to_lowercase()))
+}
+
+/// Returns whether all of the given values are rust.
+///
+/// Refer to the std-enabled version of this function.
+///
+/// This function does _not_ perform lowercasing.
+#[cfg(not(feature = "std"))]
+pub fn is_very_rusty(values: &[&str]) -> bool {
+    values.iter().all(|value| is_rust(value))
 }
 
 /// Booleans are hard, so we provide a function to check that something is _not_
@@ -251,12 +302,27 @@ pub fn is_very_rusty<D: Display>(values: &[D]) -> bool {
 ///
 /// assert!(is_rust::is_not_rust("Python"));
 /// ```
+#[cfg(feature = "std")]
 pub fn is_not_rust<D: Display>(string: D) -> bool {
     _is_not_rust(&string.to_string())
 }
 
+#[cfg(feature = "std")]
 fn _is_not_rust(string: &str) -> bool {
     !is_rust(&string.to_lowercase())
+}
+
+/// Booleans are hard, so we provide a function to check that something is _not_
+/// rust.
+///
+/// Refer to the std-enabled version of this function.
+///
+/// This function does _not_ perform lowercasing and does not check for RGB
+/// values.
+#[cfg(not(feature = "std"))]
+#[inline]
+pub fn is_not_rust(string: &str) -> bool {
+    !is_rust(&string)
 }
 
 fn str_is_rust(mut s: &str) -> bool {
@@ -276,16 +342,24 @@ fn str_is_rust(mut s: &str) -> bool {
         return true;
     }
 
-    let string = s.replace(' ', "");
-
-    let parts = string.split(',').collect::<Vec<_>>();
-    let part_count = parts.len();
-
-    let mut cur = parts[0] == RGB[0] && parts[1] == RGB[1] && parts[2] == RGB[2];
-
-    if part_count == 4 {
-        cur = cur && parts[3].starts_with("1")
+    #[cfg(not(feature = "std"))]
+    {
+        return false;
     }
 
-    cur
+    #[cfg(feature = "std")]
+    {
+        let string = s.replace(' ', "");
+
+        let parts = string.split(',').collect::<Vec<_>>();
+        let part_count = parts.len();
+
+        let mut cur = parts[0] == RGB[0] && parts[1] == RGB[1] && parts[2] == RGB[2];
+
+        if part_count == 4 {
+            cur = cur && parts[3].starts_with("1")
+        }
+
+        cur
+    }
 }

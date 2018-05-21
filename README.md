@@ -96,6 +96,21 @@ assert!(is_rust::is_not_rust("Python"));
 
 At this point, Rust should no longer sound like a word.
 
+### no_std
+
+This crate supports `no_std` use cases, but without some string checks (such as
+not lowercasing strings).
+
+To enable `no_std` support, explicitly disable the `std` feature in your
+`Cargo.toml`:
+
+```toml
+[dependencies.is-rust]
+default-features = false
+features = []
+version = "~0.1"
+```
+
 ### Installation
 
 To install this library to check whether values are Rust, you can use Rust's
