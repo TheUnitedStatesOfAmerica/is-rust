@@ -159,9 +159,12 @@ const RGB: [&str; 3] = ["173", "65", "14"];
 /// assert!(!is_rust::is_rust("ruby"));
 /// ```
 pub fn is_rust<D: Display>(string: D) -> bool {
-    let content = string.to_string().to_lowercase();
+    _is_rust(&string.to_string())
+}
 
-    str_is_rust(&content)
+#[inline]
+fn _is_rust(string: &str) -> bool {
+    str_is_rust(&string.to_lowercase())
 }
 
 /// Returns whether the given value is equal to `"rusty"`.
@@ -187,9 +190,11 @@ pub fn is_rust<D: Display>(string: D) -> bool {
 /// assert!(!is_rust::is_rusty("rust"));
 /// ```
 pub fn is_rusty<D: Display>(string: D) -> bool {
-    let lower = string.to_string().to_lowercase();
+    _is_rusty(&string.to_string())
+}
 
-    ["rusty", "ferris"].contains(&&*lower)
+fn _is_rusty(string: &str) -> bool {
+    ["rusty", "ferris"].contains(&&*string.to_lowercase())
 }
 
 /// Returns whether a value is `"rusty"` or rust itself, meaning it is at least
@@ -206,7 +211,11 @@ pub fn is_rusty<D: Display>(string: D) -> bool {
 /// assert!(is_rust::is_at_least_rusty("rusty"));
 /// ```
 pub fn is_at_least_rusty<D: Display>(string: D) -> bool {
-    let string = string.to_string().to_lowercase();
+    _is_at_least_rusty(&string.to_string())
+}
+
+fn _is_at_least_rusty(string: &str) -> bool {
+    let string = string.to_lowercase();
 
     is_rust(&string) || is_rusty(&string)
 }
@@ -243,7 +252,11 @@ pub fn is_very_rusty<D: Display>(values: &[D]) -> bool {
 /// assert!(is_rust::is_not_rust("Python"));
 /// ```
 pub fn is_not_rust<D: Display>(string: D) -> bool {
-    !is_rust(string.to_string().to_lowercase())
+    _is_not_rust(&string.to_string())
+}
+
+fn _is_not_rust(string: &str) -> bool {
+    !is_rust(&string.to_lowercase())
 }
 
 fn str_is_rust(mut s: &str) -> bool {
