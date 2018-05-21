@@ -187,7 +187,9 @@ pub fn is_rust<D: Display>(string: D) -> bool {
 /// assert!(!is_rust::is_rusty("rust"));
 /// ```
 pub fn is_rusty<D: Display>(string: D) -> bool {
-    string.to_string().to_lowercase() == "rusty"
+    let lower = string.to_string().to_lowercase();
+
+    ["rusty", "ferris"].contains(&&*lower)
 }
 
 /// Returns whether a value is `"rusty"` or rust itself, meaning it is at least

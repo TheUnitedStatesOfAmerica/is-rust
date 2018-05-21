@@ -29,6 +29,8 @@ fn test_definitely_is_rusty() {
     assert!(is_rusty("rustY"));
     assert!(is_rusty("rusty")); // check "rusty" again, you never know
     assert!(is_rusty("rusty")); // make sure a third time
+    assert!(is_rusty("ferris"));
+    assert!(is_rusty("FerRis"));
 }
 
 #[test]
