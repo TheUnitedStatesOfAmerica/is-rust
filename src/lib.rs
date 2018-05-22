@@ -357,7 +357,7 @@ fn str_is_rust(mut s: &str) -> bool {
         let mut cur = parts[0] == RGB[0] && parts[1] == RGB[1] && parts[2] == RGB[2];
 
         if part_count == 4 {
-            cur = cur && parts[3].starts_with("1")
+            cur = cur && parts[3].starts_with('1')
         }
 
         cur
