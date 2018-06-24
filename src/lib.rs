@@ -162,7 +162,7 @@ const RGB: [&str; 3] = ["173", "65", "14"];
 /// assert!(!is_rust::is_rust("ruby"));
 /// ```
 #[cfg(feature = "std")]
-pub fn is_rust<D: Display>(string: D) -> bool {
+pub fn is_rust(string: impl Display) -> bool {
     _is_rust(&string.to_string())
 }
 
@@ -205,7 +205,7 @@ pub fn is_rust(string: &str) -> bool {
 /// assert!(!is_rust::is_rusty("rust"));
 /// ```
 #[cfg(feature = "std")]
-pub fn is_rusty<D: Display>(string: D) -> bool {
+pub fn is_rusty(string: impl Display) -> bool {
     _is_rusty(&string.to_string())
 }
 
@@ -238,7 +238,7 @@ pub fn is_rusty(string: &str) -> bool {
 /// assert!(is_rust::is_at_least_rusty("rusty"));
 /// ```
 #[cfg(feature = "std")]
-pub fn is_at_least_rusty<D: Display>(string: D) -> bool {
+pub fn is_at_least_rusty(string: impl Display) -> bool {
     _is_at_least_rusty(&string.to_string())
 }
 
@@ -274,7 +274,7 @@ pub fn is_at_least_rusty(string: &str) -> bool {
 /// assert!(is_rust::is_very_rusty(&["rust", "Rust", "RUST", "b7410e"]));
 /// ```
 #[cfg(feature = "std")]
-pub fn is_very_rusty<D: Display>(values: &[D]) -> bool {
+pub fn is_very_rusty(values: &[impl Display]) -> bool {
     values.iter().all(|value| is_rust(value.to_string().to_lowercase()))
 }
 
@@ -303,7 +303,7 @@ pub fn is_very_rusty(values: &[&str]) -> bool {
 /// assert!(is_rust::is_not_rust("Python"));
 /// ```
 #[cfg(feature = "std")]
-pub fn is_not_rust<D: Display>(string: D) -> bool {
+pub fn is_not_rust(string: impl Display) -> bool {
     _is_not_rust(&string.to_string())
 }
 
